@@ -16,7 +16,8 @@
 						echo "<tr><td style='text-align: right;'><span style='font-size: 1.0em; font-weight: bold;'>Folio: </span></td><td>&nbsp;&nbsp;</td>";
 						echo "<td><span style='font-size: 1.0em;'>".$r["IDCliente"]."</span></td></tr>";
 						echo "<tr><td style='text-align: right;'><span style='font-size: 1.0em; font-weight: bold;'>Nombre: </span></td><td>&nbsp;&nbsp;</td>";
-						echo "<td><span style='font-size: 1.0em;'>".$r["nombre"]." ".$r["apellido"]."</span></td></tr>";
+						$cliente = $r["nombre"];
+						echo "<td><span style='font-size: 1.0em;'>".$cliente." ".$r["apellido"]."</span></td></tr>";
 						echo "<tr><td style='text-align: right;'><span style='font-size: 1.0em; font-weight: bold;'>Teléfono: </span></td><td>&nbsp;&nbsp;</td>";
 						echo "<td><span style='font-size: 1.0em;'>".$r["telefono"]."</span></td></tr>";
 						echo "<tr><td style='text-align: right;'><span style='font-size: 1.0em; font-weight: bold;'>Correo Electrónico: </span></td><td>&nbsp;&nbsp;</td>";
@@ -44,7 +45,7 @@
 						<tbody  style="text-align: center;">
 					<?php
 						while($r = $autos->fetch_assoc()){
-							echo "<tr><td>".$r["placas"]."</td>";
+							echo "<tr><td><a href='auto.php?placas=".$r["placas"]."'>".$r["placas"]."</a></td>";
 							echo "<td>".$r["marca"]."</td>";
 							echo "<td>".$r["submarca"]."</td>";
 							echo "<td>".$r["modelo"]."</td></tr>";
@@ -52,7 +53,7 @@
 						echo "</tbody></table>";
 					}
 				?>
-					<br><br><a href="formAuto.php?cliente=<?php echo $folio;?>">
+					<br><br><a href="formAuto.php?cliente=<?php echo $folio;?>&nombre=<?php echo $cliente;?>">
 						<button type="submit" class="btn btn-primary">Registrar nuevo auto</button>
 					</a>
 			</center>
