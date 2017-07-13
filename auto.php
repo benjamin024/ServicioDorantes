@@ -42,7 +42,7 @@
 				}else{
 				
 				}
-				echo "<br><br><a href='formOrden.php?cliente=$cliente&auto=$placas'><button type='submit' class='btn btn-primary'>Nueva Orden de Servicio</button></a>";
+				echo "<br><br><a href='formOrden.php?auto=$placas'><button type='submit' class='btn btn-primary'>Nueva Orden de Servicio</button></a>";
 			}
 		?>
 		</center></div>

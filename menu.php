@@ -1,7 +1,6 @@
 <?php 
 	session_start(); 
 	$usr = $_SESSION['usuario'];
-	$tipo = $_SESSION['tipo'];
 	if(empty($usr))
 		header("location: index.html");
 ?>
