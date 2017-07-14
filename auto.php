@@ -39,10 +39,30 @@
 				$historial = $conn->query($sql);
 				if($historial->num_rows < 1){
 						echo "<br><br><br><br><br><br><span style='font-size: 1.7em; font-weight: bold;'>Este auto no tiene historial</span>";
-				}else{
-				
+				}else{ ?>
+					<br><br><br><br><br><br><span style='font-size: 2.2em; font-weight: bold;'>Historial</span>
+					<br><span style='font-size: 1.2em;'>Da clic en el folio para consultar la orden de servicio completa</span>
+						<table class="table table-bordered table-responsive table-hover">
+						<thead  style="text-align: center;" class="bg-primary">
+							<tr>
+								<th class="col-md-3">Folio</th>
+								<th class="col-md-3">Fecha</th>
+								<th class="col-md-3">Observaciones</th>
+							</tr>
+						</thead>
+						<tbody  style="text-align: center;">
+					<?php
+						while($r = $historial->fetch_assoc()){
+							echo "<tr><td><a href='orden.php?folio=".$r["folio"]."'>".$r["folio"]."</a></td>";
+							setlocale(LC_TIME, 'es_MX.UTF-8');
+							$fecha = strftime("%d de %B de %G",strtotime($r["fecha"]));
+							echo "<td>".$fecha."</td>";
+							echo "<td>".$r["observaciones"]."</td></tr>";
+						}
+						echo "</tbody></table>";
+					
 				}
-				echo "<br><br><a href='formOrden.php?auto=$placas'><button type='submit' class='btn btn-primary'>Nueva Orden de Servicio</button></a>";
+				echo "<br><a href='formOrden.php?auto=$placas'><button type='submit' class='btn btn-primary'>Nueva Orden de Servicio</button></a>";
 			}
 		?>
 		</center></div>

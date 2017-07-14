@@ -112,7 +112,7 @@
 	  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
 	</form>
         </li>
-        <li><a href="formOrden.php" style="color: #fff;"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Orden de Servicio</a></li>
+        <li><a href="ordenes.php" style="color: #fff;"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Órdenes de Servicio</a></li>
         <li><a href="presupuestos.php" style="color: #fff;"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Presupuestos</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
