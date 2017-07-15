@@ -129,18 +129,15 @@
 						</table>
 					</div>
 					<?php
-						$mesA = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
-						$dia = date("d");
-						$mes = $mesA[date("n")-1];
-						$anio = date("Y");
-						echo "<div class='col-md-12'><br><center><b>Ciudad de México a $dia de $mes de $anio</b></center></div>";
-						$fecha = "$anio-".date("m")."-$dia";
+						setlocale(LC_TIME, 'es_MX.UTF-8');
+						$fecha = strftime("Ciudad de México a %d de %B de %G",strtotime($ro["fecha"]));
+						echo "<div class='col-md-12'><br><center><b>$fecha</b></center></div>";
 					?>
 					<div class="col-md-12"><br></div>
 				</div>
 				<div class="col-md-8 col-md-offset-2"><center>
 					<br><br>
-					<span style="cursor: pointer; font-size: 1.5em;" class="glyphicon glyphicon-print" aria-hidden="true""></span>
+					<a href="imprimeOrden.php?folio=<?php echo $folio;?>" target="_blank" style="color: black;"><span style="font-size: 1.5em;" class="glyphicon glyphicon-print" aria-hidden="true""></span></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
 					<span style="cursor: pointer; font-size: 1.5em;" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 					<br><br><a href="auto.php?placas=<?php echo $ro["auto"]; ?>"><button class="btn btn-primary " type="submit">Ver información del auto</button></a>

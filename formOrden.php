@@ -21,8 +21,8 @@
 					<br>
 					<form action="registraOrden.php" method="post">
 					<div class="col-md-8 col-md-offset-2">
-					<center><span style='font-size: 2.2em; font-weight: bold;'>Nueva Orden de Servicio</span></center>
-					<b>Instrucciones: Completa la información de la orden de servicio. Antes de comenzar a escribir en la zona de descripción de trabajo, configura el número de renglones necesarios utilizando los botones + o -.</b>
+					<center><span style='font-size: 2.2em; font-weight: bold;'>Nueva Orden de Servicio</span><br>
+					<b>Completa la información de la orden de servicio.</b></center>
 					</div>
 					<div class="col-md-12"><br></div>
 					<div class="col-md-8 col-md-offset-2" style="border: solid black 2px; color: #007ED2;">
@@ -130,14 +130,25 @@
 							$dia = date("d");
 							$mes = $mesA[date("n")-1];
 							$anio = date("Y");
-							echo "<div class='col-md-12'><br><center><b>Ciudad de México a $dia de $mes de $anio</b></center></div>";
-							$fecha = "$anio-".date("m")."-$dia";
 						?>
-						<div class="col-md-12"><br></div>
+						<div class="col-md-12"><center>
+							<div class="form-group">
+							<br><b>Ciudad de México a </b>
+							<div class="input-group date form_date col-md-6" data-date="" data-date-format="dd MM yyyy" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+							    <?php
+							    	$mesA = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+								$mes = $mesA[date("n")-1];
+								$anio = date("Y");
+								$dia = date("d");
+							    ?>
+							    <input class="form-control" size="100%" type="text" value="<?php echo "$dia $mes $anio";?>" readonly>
+							    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+							</div>
+							<input type="hidden" id="dtp_input2" name="fecha" value="" /><br/>
+						</center></div>
 					</div>
 					<input type="hidden" name="numTrabajos" id="fT" value="1"/>
 					<input type="hidden" name="placas" value="<?php echo $auto; ?>" />
-					<input type="hidden" name="fecha" value="<?php echo $fecha; ?>" />
 					<input type="hidden" name="subtotal" id="fSub" value="0"/>
 					<div class="col-md-8 col-md-offset-2"><br><center><button class="btn btn-primary " type="submit">Registrar Orden de Servicio</button></center></div>
 					</form>
@@ -170,6 +181,16 @@
 	var t = 1;
 	var limite = 10;
 	function agregar(){
+		 var tArray = [];
+		 var mArray = [];
+		 var rArray = [];
+		 var totArray = [];
+		 for(var i = 1; i <= t; i++){
+		 	tArray[i] = document.getElementById("t"+i).value;
+		 	mArray[i] = document.getElementById("mo"+i).value;
+		 	rArray[i] = document.getElementById("r"+i).value;
+		 	totArray[i] = document.getElementById("tot"+i).value;
+		 }
 		 t++;
 		 document.getElementById("fT").value = t;
 		 if(t > 1)
@@ -183,6 +204,12 @@
 		 fila += "<td style='border: 1px solid;'><input type='number' id='r"+t+"' name='r"+t+"' class='form-control'  onblur='getTotal("+t+");'/></td>";
 		 fila += "<td style='border: 1px solid;' id='tot"+t+"'></td></tr>";
 		 document.getElementById("trabajosTable").tBodies.namedItem("trabajosBody").innerHTML += fila;
+		 for(var i = 1; i < t; i++){
+		 	document.getElementById("t"+i).value = tArray[i];
+		 	document.getElementById("mo"+i).value = mArray[i];
+		 	document.getElementById("r"+i).value = rArray[i];
+		 	document.getElementById("tot"+i).value = totArray[i];
+		 }
 	}
 	
 	function quitar(){
@@ -238,5 +265,24 @@
 		document.getElementById("iva").innerHTML = iva;
 		document.getElementById("total").innerHTML = total;
 	}
+</script>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+<script type="text/javascript" src="js/locales/bootstrap-datetimepicker.es.js" charset="UTF-8"></script>
+<script type="text/javascript">
+	var f = new Date();
+	console.log(f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear());
+	$('.form_date').datetimepicker({
+        language:  'es',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0,
+		initialDate: f
+    });
 </script>
 
