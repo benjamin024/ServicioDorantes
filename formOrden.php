@@ -25,7 +25,7 @@
 					<b>Completa la información de la orden de servicio.</b></center>
 					</div>
 					<div class="col-md-12"><br></div>
-					<div class="col-md-8 col-md-offset-2" style="border: solid black 2px; color: #007ED2;">
+					<div class="col-md-8 col-md-offset-2" style="border: solid black 2px; color: #007ED2; background-color: #FFFFFF;">
 						<div class="col-md-12"><br></div>
 						<div class="col-md-4">
 							<img src="img/Logo.jpg" width="100%">
@@ -138,13 +138,14 @@
 							    <?php
 							    	$mesA = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
 								$mes = $mesA[date("n")-1];
+								$mesN = date("m");
 								$anio = date("Y");
 								$dia = date("d");
 							    ?>
 							    <input class="form-control" size="100%" type="text" value="<?php echo "$dia $mes $anio";?>" readonly>
 							    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
 							</div>
-							<input type="hidden" id="dtp_input2" name="fecha" value="" /><br/>
+							<input type="hidden" id="dtp_input2" name="fecha" value="<?php echo "$anio-$mesN-$dia";?>" /><br/>
 						</center></div>
 					</div>
 					<input type="hidden" name="numTrabajos" id="fT" value="1"/>

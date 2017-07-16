@@ -12,6 +12,15 @@
 		$rp = $presupuesto->fetch_assoc();
 	
 ?>
+<script type="text/javascript">
+	function envia(folio){
+		console.log(folio);
+		var mail = prompt("Ingresa el correo electrónico:", "");
+		if (!(mail == null || mail == ""))
+			window.open("imprimePresupuesto.php?folio="+folio+"&mail="+mail, "_blank");
+
+	}
+</script>
 <div class="container">
 	<div class="row">
 		<br>
@@ -19,7 +28,7 @@
 		<center><span style='font-size: 2.2em; font-weight: bold;'>Consulta de Presupuesto</span><br>
 		</div>
 		<div class="col-md-12"><br></div>
-		<div class="col-md-8 col-md-offset-2" style="border: solid black 2px;">
+		<div class="col-md-8 col-md-offset-2" style="border: solid black 2px; background-color: #FFFFFF;">
 			<div class="col-md-12"><br></div>
 			<div class="col-md-4">
 				<img src="img/Logo.jpg" width="100%">
@@ -54,8 +63,16 @@
 						$trabajos = $conn->query($sql);
 						while($r = $trabajos->fetch_assoc()){
 							echo "<tr><td style='border: 1px solid;'>".$r["descripcion"]."</td>";
-							echo "<td style='border: 1px solid;'>$".$r["manoObra"]."</td>";
-							echo "<td style='border: 1px solid;'>$".$r["refacciones"]."</td>";
+							if($r["manoObra"] == 0)
+								$mano = "";
+							else
+								$mano = "$".$r["manoObra"];
+							echo "<td style='border: 1px solid;'>$mano</td>";
+							if($r["refacciones"] == 0)
+								$ref = "";
+							else
+								$ref = "$".$r["refacciones"];
+							echo "<td style='border: 1px solid;'>$ref</td>";
 							echo "<td style='border: 1px solid;'>$".($r["manoObra"] + $r["refacciones"])."</td></tr>";
 						}
 						?>
@@ -63,7 +80,7 @@
 				</table>
 				<table class="table-responsive" style="border: 1px solid; width: 100%; text-align: center;">
 					<tr style="border-top: hidden;">
-						<td  style="border: 1px solid;" rowspan=3 class="col-md-8">
+						<td  style="border: 1px solid;" rowspan=3 class="col-md-8" valign="top">
 							<b>Notas</b><br>
 							<?php echo $rp["notas"]; ?>
 						</td>
@@ -102,9 +119,9 @@
 		</div>
 		<div class="col-md-8 col-md-offset-2"><center>
 			<br><br>
-			<a href="imprimePresupuesto.php?folio=<?php echo $folio;?>" target="_blank" style="color: black;"><span style="font-size: 1.5em;" class="glyphicon glyphicon-print" aria-hidden="true""></span></a>
+			<a href="imprimePresupuesto.php?folio=<?php echo $folio;?>" target="_blank" style="color: #222;"><span style="font-size: 1.5em;" class="glyphicon glyphicon-print" aria-hidden="true""></span></a>
 			&nbsp;&nbsp;&nbsp;&nbsp;
-			<span style="cursor: pointer; font-size: 1.5em;" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
+			<span style="cursor: pointer; font-size: 1.5em; color: #222; cursor: pointer;" class="glyphicon glyphicon-envelope" aria-hidden="true" onclick="envia('<?php echo $folio; ?>');"></span>
 			<br><br><a href="presupuestos.php"><button class="btn btn-primary " type="submit">Regresar a Presupuestos</button></a>
 		</center></div>
 	</div>

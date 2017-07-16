@@ -1,6 +1,7 @@
 <?php
 	require("conexion.php");
 	$folio =@$_GET["folio"];
+	$m =@ $_GET["mail"];
 	$sql = "SELECT * FROM Presupuesto WHERE folio='$folio';";
 	$presupuesto = $conn->query($sql);
 	$rp = $presupuesto->fetch_assoc();
@@ -36,15 +37,23 @@
 				$trabajos = $conn->query($sql);
 				while($r = $trabajos->fetch_assoc()){
 					$html .= "<tr><td style='border: 1px solid;'>".$r["descripcion"]."</td>";
-					$html .= "<td style='border: 1px solid;'>$".$r["manoObra"]."</td>";
-					$html .= "<td style='border: 1px solid;'>$".$r["refacciones"]."</td>";
+					if($r["manoObra"] == 0)
+						$mano = "";
+					else
+						$mano = "$".$r["manoObra"];
+					$html .= "<td style='border: 1px solid;'>$mano</td>";
+					if($r["refacciones"] == 0)
+						$ref = "";
+					else
+						$ref = "$".$r["refacciones"];
+					$html .= "<td style='border: 1px solid;'>$ref</td>";
 					$html .= "<td style='border: 1px solid;'>$".($r["manoObra"] + $r["refacciones"])."</td></tr>";
 				}
 	$html .= "		</tbody>
 		        </table>
 		        <table style='border: 1px solid; border-collapse: collapse; width: 100%; text-align: center;'>
 		        	<tr style='border-top: hidden;'>
-						<td  style='border: 1px solid; width: 66.66%;' rowspan=3'>
+						<td  style='border: 1px solid; width: 66.66%;' rowspan=3' valign='top'>
 							<b>Notas</b><br>"
 							.$rp["notas"].
 					       "</td>
@@ -78,10 +87,18 @@
 	
 	$dompdf->load_html($html);
 	$dompdf->render();
-	$dompdf->stream(
-		"$folio.pdf",
-		array(
-			"Attachment" => false
-		)
-	);
+	if(empty($m)){
+		$dompdf->stream(
+			"$folio.pdf",
+			array(
+				"Attachment" => false
+			)
+		);
+	}else{
+		$pdf = $dompdf->output(); 
+		//se guarda en un directorio temporal
+		$nombre_archivo = "temp/$folio.pdf";
+		file_put_contents($nombre_archivo, $pdf);
+		header("Location: enviaPresupuesto.php?folio=$folio&mail=$m");
+	}
 ?>

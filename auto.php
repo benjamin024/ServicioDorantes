@@ -53,7 +53,7 @@
 						<tbody  style="text-align: center;">
 					<?php
 						while($r = $historial->fetch_assoc()){
-							echo "<tr><td><a href='orden.php?folio=".$r["folio"]."'>".$r["folio"]."</a></td>";
+							echo "<tr style='background-color: #FFFFFF;'><td><a href='orden.php?folio=".$r["folio"]."'>".$r["folio"]."</a></td>";
 							setlocale(LC_TIME, 'es_MX.UTF-8');
 							$fecha = strftime("%d de %B de %G",strtotime($r["fecha"]));
 							echo "<td>".$fecha."</td>";

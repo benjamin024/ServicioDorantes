@@ -4,7 +4,7 @@
 	$f =@$_POST["fecha"];
 	if(empty($f))
 		$f = date("Y-m");
-	$sql = "SELECT o.folio, o.fecha, a.marca, a.submarca, c.nombre, c.apellido FROM Orden as o, Auto as a, Cliente as c WHERE o.auto = a.placas AND a.cliente = c.IDCliente AND o.fecha LIKE '$f%';";
+	$sql = "SELECT o.folio, o.fecha, a.marca, a.submarca, c.nombre, c.apellido FROM Orden as o, Auto as a, Cliente as c WHERE o.auto = a.placas AND a.cliente = c.IDCliente AND o.fecha LIKE '$f%' ORDER BY o.fecha DESC;";
 	$consulta = $conn->query($sql);
 ?>
 <html>
@@ -58,7 +58,7 @@
 			<tbody  style="text-align: center;">
 	     <?php
 	     		while($r = $consulta->fetch_assoc()){
-	     			echo "<tr><td><a href='orden.php?folio=".$r["folio"]."'>".$r["folio"]."</a></td>";
+	     			echo "<tr style='background-color: #FFFFFF;'><td><a href='orden.php?folio=".$r["folio"]."'>".$r["folio"]."</a></td>";
 				setlocale(LC_TIME, 'es_MX.UTF-8');
 				$fecha = strftime("%d de %B de %G",strtotime($r["fecha"]));
 				echo "<td>".$fecha."</td>";

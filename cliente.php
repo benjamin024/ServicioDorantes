@@ -45,7 +45,7 @@
 						<tbody  style="text-align: center;">
 					<?php
 						while($r = $autos->fetch_assoc()){
-							echo "<tr><td><a href='auto.php?placas=".$r["placas"]."'>".$r["placas"]."</a></td>";
+							echo "<tr style='background-color: #FFFFFF;'><td><a href='auto.php?placas=".$r["placas"]."'>".$r["placas"]."</a></td>";
 							echo "<td>".$r["marca"]."</td>";
 							echo "<td>".$r["submarca"]."</td>";
 							echo "<td>".$r["modelo"]."</td></tr>";

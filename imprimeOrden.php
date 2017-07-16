@@ -1,6 +1,7 @@
 <?php
 	require("conexion.php");
 	$folio =@$_GET["folio"];
+	$m =@ $_GET["mail"];
 	
 	$sql = "SELECT * FROM Orden WHERE folio='$folio';";
 	$orden = $conn->query($sql);
@@ -75,8 +76,16 @@
 				$num = 1;
 				while($r = $trabajos->fetch_assoc()){
 					$html .= "<tr><td style='border: 1px solid;'>".$r["descripcion"]."</td>";
-					$html .= "<td style='border: 1px solid;'>$".$r["manoObra"]."</td>";
-					$html .= "<td style='border: 1px solid;'>$".$r["refacciones"]."</td>";
+					if($r["manoObra"] == 0)
+						$mano = "";
+					else
+						$mano = "$".$r["manoObra"];
+					$html .= "<td style='border: 1px solid;'>$mano</td>";
+					if($r["refacciones"] == 0)
+						$ref = "";
+					else
+						$ref = "$".$r["refacciones"];
+					$html .= "<td style='border: 1px solid;'>$ref</td>";
 					$html .= "<td style='border: 1px solid;'>$".($r["manoObra"] + $r["refacciones"])."</td></tr>";
 					$num++;
 				}
@@ -144,10 +153,18 @@
 	";
 	$dompdf->load_html($html);
 	$dompdf->render();
-	$dompdf->stream(
-		"$folio.pdf",
-		array(
-			"Attachment" => false
-		)
-	);
+	if(empty($m)){
+		$dompdf->stream(
+			"$folio.pdf",
+			array(
+				"Attachment" => false
+			)
+		);
+	}else{
+		$pdf = $dompdf->output(); 
+		//se guarda en un directorio temporal
+		$nombre_archivo = "temp/$folio.pdf";
+		file_put_contents($nombre_archivo, $pdf);
+		header("Location: enviaOrden.php?folio=$folio&mail=$m");
+	}
 ?>

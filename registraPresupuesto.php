@@ -13,6 +13,8 @@
 	$folio  =  "PRE";
 	$folio .= str_pad($num, 4, "0", STR_PAD_LEFT); 
 	
+	$numT =@$_POST["numTrabajos"];
+	
 	$sql = "INSERT INTO Presupuesto VALUES('$folio','$titulo','$fecha',$subtotal,'$notas');";
 	$conn->query($sql);
 	
@@ -21,6 +23,10 @@
 		$descripcion =@$_POST["t".$i];
 		$mano =@$_POST["mo".$i];
 		$refacciones =@$_POST["r".$i];
+		if(empty($mano))
+			$mano = 0;
+		if(empty($refacciones))
+			$refacciones = 0;
 		
 		$sql = "INSERT INTO Trabajo(descripcion, manoObra, refacciones, ordenPresupuesto) VALUES('$descripcion',$mano,$refacciones,'$folio');";
 		$conn->query($sql);

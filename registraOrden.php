@@ -5,6 +5,8 @@
 	$kilometraje =@$_POST["kilometraje"];
 	$subtotal =@$_POST["subtotal"];
 	$observaciones =@$_POST["observaciones"];
+	if(empty($observaciones))
+		$observaciones = "Sin observaciones";
 	
 	$sql = "SELECT count(*) as num FROM Orden;";
 	$consulta = $conn->query($sql);
@@ -22,6 +24,10 @@
 		$descripcion =@$_POST["t".$i];
 		$mano =@$_POST["mo".$i];
 		$refacciones =@$_POST["r".$i];
+		if(empty($mano))
+			$mano = 0;
+		if(empty($refacciones))
+			$refacciones = 0;
 		
 		$sql = "INSERT INTO Trabajo(descripcion, manoObra, refacciones, ordenPresupuesto) VALUES('$descripcion',$mano,$refacciones,'$folio');";
 		$conn->query($sql);

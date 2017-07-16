@@ -41,7 +41,7 @@
 					<?php
 							while($resultado = $consulta->fetch_assoc()) {
 								echo "";
-								echo "<tr><td><a href='cliente.php?id=".$resultado["IDCliente"]."'>".$resultado["nombre"]." ".$resultado["apellido"]."</a></td>";
+								echo "<tr style='background-color: #FFFFFF;'><td><a href='cliente.php?id=".$resultado["IDCliente"]."'>".$resultado["nombre"]." ".$resultado["apellido"]."</a></td>";
 								echo "<td>".$resultado["telefono"]."</td>";
 								echo "<td>".$resultado["email"]."</td></tr>";
 							}

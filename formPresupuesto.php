@@ -11,7 +11,7 @@
 		</div>
 		<div class="col-md-12"><br></div>
 		<form action="registraPresupuesto.php" method="post">
-		<div class="col-md-8 col-md-offset-2" style="border: solid black 2px;">
+		<div class="col-md-8 col-md-offset-2" style="border: solid black 2px; background-color: #FFFFFF;">
 			<div class="col-md-12"><br></div>
 			<div class="col-md-4">
 				<img src="img/Logo.jpg" width="100%">

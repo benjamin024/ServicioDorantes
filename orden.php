@@ -16,6 +16,7 @@
 		$sql = "SELECT * FROM Usuario WHERE user = '$usr';";
 		$admin = $conn->query($sql);
 		$r = $admin->fetch_assoc();
+		$mail = $d["email"];
 		?>
 		<div class="container">
 			<div class="row">
@@ -24,7 +25,7 @@
 					<center><span style='font-size: 2.2em; font-weight: bold;'>Consulta de Orden de Servicio</span></center>
 				</div>
 				<div class="col-md-12"><br></div>
-				<div class="col-md-8 col-md-offset-2" style="border: solid black 2px; color: #007ED2;">
+				<div class="col-md-8 col-md-offset-2" style="border: solid black 2px; color: #007ED2; background-color: #FFFFFF;">
 					<div class="col-md-12"><br></div>
 					<div class="col-md-4">
 						<img src="img/Logo.jpg" width="100%">
@@ -93,8 +94,16 @@
 								$trabajos = $conn->query($sql);
 								while($r = $trabajos->fetch_assoc()){
 									echo "<tr><td style='border: 1px solid;'>".$r["descripcion"]."</td>";
-									echo "<td style='border: 1px solid;'>$".$r["manoObra"]."</td>";
-									echo "<td style='border: 1px solid;'>$".$r["refacciones"]."</td>";
+									if($r["manoObra"] == 0)
+										$mano = "";
+									else
+										$mano = "$".$r["manoObra"];
+									echo "<td style='border: 1px solid;'>$mano</td>";
+									if($r["refacciones"] == 0)
+										$ref = "";
+									else
+										$ref = "$".$r["refacciones"];
+									echo "<td style='border: 1px solid;'>$ref</td>";
 									echo "<td style='border: 1px solid;'>$".($r["manoObra"] + $r["refacciones"])."</td></tr>";
 								}
 							?>
@@ -137,11 +146,21 @@
 				</div>
 				<div class="col-md-8 col-md-offset-2"><center>
 					<br><br>
-					<a href="imprimeOrden.php?folio=<?php echo $folio;?>" target="_blank" style="color: black;"><span style="font-size: 1.5em;" class="glyphicon glyphicon-print" aria-hidden="true""></span></a>
+					<a href="imprimeOrden.php?folio=<?php echo $folio;?>" target="_blank" style="color: #222;"><span style="font-size: 1.5em;" class="glyphicon glyphicon-print" aria-hidden="true""></span></a>
 					&nbsp;&nbsp;&nbsp;&nbsp;
-					<span style="cursor: pointer; font-size: 1.5em;" class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-					<br><br><a href="auto.php?placas=<?php echo $ro["auto"]; ?>"><button class="btn btn-primary " type="submit">Ver información del auto</button></a>
+					<span style="cursor: pointer; color: #222; font-size: 1.5em;" class="glyphicon glyphicon-envelope" aria-hidden="true" onclick="envia('<?php echo $folio."','".$mail; ?>');"></span>
+					<br><br><a href="auto.php?placas=<?php echo $ro["auto"]; ?>" style="color: #222;"><button class="btn btn-primary " type="submit">Ver información del auto</button></a>
 				</center></div>
 <?php
 	}
 ?>
+<script type="text/javascript">
+	function envia(folio,mail){
+		console.log(folio);
+		console.log(mail);
+		var mail = prompt("Confirma el correo electrónico:", mail);
+		if (!(mail == null || mail == ""))
+			window.open("imprimeOrden.php?folio="+folio+"&mail="+mail, "_blank");
+
+	}
+</script>

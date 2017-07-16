@@ -6,7 +6,7 @@
 ?>
 <!DOCTYPE html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
     <title>Servicio Dorantes</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -14,7 +14,7 @@
     <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
     <style type="text/css">
 	body{
-	    background:url('Imagenes/background.jpg');
+	    background:url('img/background.jpg');
     	    background-attachment: fixed;
             padding:50px;
 	}
@@ -99,7 +99,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="indexAdmin.php" style="color: #fff;"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio</a>
+      <a class="navbar-brand" href="indexAdmin.php" style="color: #fff;"><img src="img/sd.png" width="45%" /></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -107,12 +107,12 @@
       <ul class="nav navbar-nav">
         <li><a href="clientes.php" style="color: #fff;"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Clientes</a></li>
         <li>
-        <form class="navbar-form navbar-left" role="search" method="get" action="auto.php">
+        <form class="navbar-form navbar-left" role="search" method="get" action="auto.php"><center>
 	  <div class="form-group">
 	    <input type="text" name="placas" class="form-control" placeholder="Buscar placas" required/>
 	  </div>
 	  <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
-	</form>
+	</center></form>
         </li>
         <li><a href="ordenes.php" style="color: #fff;"><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Órdenes de Servicio</a></li>
         <li><a href="presupuestos.php" style="color: #fff;"><span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Presupuestos</a></li>

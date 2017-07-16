@@ -4,7 +4,7 @@
 	$f =@$_POST["fecha"];
 	if(empty($f))
 		$f = date("Y-m");
-	$sql = "SELECT folio, fecha, titulo FROM Presupuesto WHERE fecha LIKE '$f%';";
+	$sql = "SELECT folio, fecha, titulo FROM Presupuesto WHERE fecha LIKE '$f%' ORDER BY fecha DESC;";
 	$consulta = $conn->query($sql);
 ?>
 <html>
@@ -57,7 +57,7 @@
 			<tbody  style="text-align: center;">
 	     <?php
 	     		while($r = $consulta->fetch_assoc()){
-	     			echo "<tr><td><a href='presupuesto.php?folio=".$r["folio"]."'>".$r["folio"]."</a></td>";
+	     			echo "<tr style='background-color: #FFFFFF;'><td><a href='presupuesto.php?folio=".$r["folio"]."'>".$r["folio"]."</a></td>";
 				setlocale(LC_TIME, 'es_MX.UTF-8');
 				$fecha = strftime("%d de %B de %G",strtotime($r["fecha"]));
 				echo "<td>".$fecha."</td>";
